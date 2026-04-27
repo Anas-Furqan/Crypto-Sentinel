@@ -1,64 +1,21 @@
-#include <crow_all.h>
+#include <crow.h>
 #include <nlohmann/json.hpp>
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <map>
 
-using json = nlohmann::json;
+#include "api/api_manager.h"
+#include "engine/risk_analyzer.h"
+#include "engine/sentiment_analyzer.h"
+#include "models/portfolio.h"
 
-// Forward declarations
-class ApiManager;
-class Portfolio;
-class RiskAnalyzer;
-class SentimentAnalyzer;
+using json = nlohmann::json;
 
 // Global instances
 ApiManager* g_apiManager = nullptr;
 RiskAnalyzer* g_riskAnalyzer = nullptr;
 SentimentAnalyzer* g_sentimentAnalyzer = nullptr;
-
-// Placeholder classes (will be fully implemented)
-class ApiManager {
-public:
-    ApiManager() {}
-    
-    json fetchCoinPrices() {
-        // TODO: Implement CoinGecko API integration
-        json prices;
-        prices["BTC"] = 45000;
-        prices["ETH"] = 2500;
-        prices["SOL"] = 180;
-        return prices;
-    }
-};
-
-class RiskAnalyzer {
-public:
-    RiskAnalyzer() {}
-    
-    json analyzePortfolioRisk(json portfolio) {
-        // TODO: Implement risk analysis engine
-        json result;
-        result["riskLevel"] = "Medium";
-        result["concentration"] = 0.45;
-        result["diversification"] = 0.55;
-        return result;
-    }
-};
-
-class SentimentAnalyzer {
-public:
-    SentimentAnalyzer() {}
-    
-    json getSentiment() {
-        // TODO: Implement Fear & Greed API integration
-        json sentiment;
-        sentiment["fearGreedIndex"] = 55;
-        sentiment["status"] = "Neutral";
-        return sentiment;
-    }
-};
 
 int main() {
     // Initialize managers
@@ -82,7 +39,8 @@ int main() {
     // Get live prices
     CROW_ROUTE(app, "/prices").methods("GET"_method)
     ([]() {
-        json prices = g_apiManager->fetchCoinPrices();
+        std::vector<std::string> symbols = {"BTC", "ETH", "SOL"};
+        json prices = g_apiManager->fetchCoinPrices(symbols);
         return crow::response(200, prices.dump());
     });
     
@@ -103,14 +61,29 @@ int main() {
     // Get risk analysis
     CROW_ROUTE(app, "/risk").methods("GET"_method)
     ([]() {
-        json riskData = g_riskAnalyzer->analyzePortfolioRisk(json());
+        std::map<std::string, double> holdings = {
+            {"BTC", 0.4},
+            {"ETH", 2.0},
+            {"SOL", 15.0}
+        };
+        std::map<std::string, double> prices = {
+            {"BTC", 45000},
+            {"ETH", 2500},
+            {"SOL", 180}
+        };
+        std::map<std::string, double> volatilities = {
+            {"BTC", 0.05},
+            {"ETH", 0.08},
+            {"SOL", 0.12}
+        };
+        json riskData = g_riskAnalyzer->performCompleteAnalysis(holdings, prices, volatilities);
         return crow::response(200, riskData.dump());
     });
     
     // Get market sentiment
     CROW_ROUTE(app, "/sentiment").methods("GET"_method)
     ([]() {
-        json sentiment = g_sentimentAnalyzer->getSentiment();
+        json sentiment = g_sentimentAnalyzer->performCompleteAnalysis();
         return crow::response(200, sentiment.dump());
     });
     
@@ -138,15 +111,7 @@ int main() {
         return crow::response(200, response.dump());
     });
     
-    // CORS middleware
-    auto& cors = app.get_middleware<crow::CORSHandler>();
-    cors
-        .global()
-        .headers("Content-Type", "Authorization")
-        .methods("GET"_method, "POST"_method, "PUT"_method, "DELETE"_method)
-        .origin("localhost");
-    
-    std::cout << "🚀 CryptoSentinel Backend starting on http://localhost:8080" << std::endl;
+    std::cout << "CryptoSentinel Backend starting on http://localhost:8080" << std::endl;
     app.port(8080).multithreaded().run();
     
     // Cleanup

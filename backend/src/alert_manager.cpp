@@ -1,6 +1,6 @@
 #include "engine/alert_manager.h"
 #include <ctime>
-#include <uuid/uuid.h>
+#include <algorithm>
 
 json Alert::toJson() const {
     json j;

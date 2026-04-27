@@ -26,7 +26,7 @@ SentimentStatus SentimentAnalyzer::getSentimentStatus() const {
     return SentimentStatus::EXTREME_GREED;
 }
 
-std::string SentimentAnalyzer::getSentimentDescription(int index) {
+std::string SentimentAnalyzer::getSentimentDescription(int index) const {
     if (index < 25) return "Extreme Fear";
     if (index < 45) return "Fear";
     if (index < 55) return "Neutral";

@@ -1,0 +1,10 @@
+^C:\USERS\THIS PC\DOCUMENTS\GITHUB\CRYPTOSENTINEL\BACKEND\BUILD\CMAKEFILES\C6C28994CE75459205D8B07AC3A3D89D\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/THIS PC/Documents/GitHub/CryptoSentinel/backend" "-BC:/Users/THIS PC/Documents/GitHub/CryptoSentinel/backend/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/THIS PC/Documents/GitHub/CryptoSentinel/backend/build/CryptoSentinelBackend.slnx"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

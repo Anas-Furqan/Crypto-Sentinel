@@ -1,5 +1,5 @@
 #include "models/user.h"
-#include <uuid/uuid.h>
+#include <functional>
 #include <cstring>
 #include <sstream>
 #include <iomanip>

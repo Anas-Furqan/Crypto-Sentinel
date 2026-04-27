@@ -1,0 +1,11 @@
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\main.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\main.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\user.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\user.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\portfolio.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\portfolio.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\crypto_asset.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\crypto_asset.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\transaction.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\transaction.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\api_manager.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\api_manager.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\risk_analyzer.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\risk_analyzer.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\strategy_engine.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\strategy_engine.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\alert_manager.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\alert_manager.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\sentiment_analyzer.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\sentiment_analyzer.obj
+C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\file_handler.cpp;C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\build\crypto_sentinel.dir\Release\file_handler.obj

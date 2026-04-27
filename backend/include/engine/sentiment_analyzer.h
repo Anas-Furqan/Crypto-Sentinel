@@ -2,6 +2,7 @@
 #define SENTIMENT_ANALYZER_H
 
 #include <string>
+#include <ctime>
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
@@ -30,7 +31,7 @@ public:
     SentimentStatus getSentimentStatus() const;
     
     // Get sentiment classification
-    std::string getSentimentDescription(int index);
+    std::string getSentimentDescription(int index) const;
     
     // Get cached sentiment (without API call)
     json getCachedSentiment() const;

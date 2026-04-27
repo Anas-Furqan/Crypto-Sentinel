@@ -1,0 +1,3 @@
+C:/Users/THIS PC/Documents/GitHub/CryptoSentinel/backend/build/CMakeFiles/crypto_sentinel.dir
+C:/Users/THIS PC/Documents/GitHub/CryptoSentinel/backend/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/THIS PC/Documents/GitHub/CryptoSentinel/backend/build/CMakeFiles/ZERO_CHECK.dir

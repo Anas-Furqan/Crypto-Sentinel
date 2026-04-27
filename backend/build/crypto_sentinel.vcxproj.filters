@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\user.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\portfolio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\crypto_asset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\transaction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\api_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\risk_analyzer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\strategy_engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\alert_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\sentiment_analyzer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\src\file_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\THIS PC\Documents\GitHub\CryptoSentinel\backend\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{29127AEF-3815-3703-9038-B45F3698F1D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
