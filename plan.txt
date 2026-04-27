@@ -1,0 +1,535 @@
+Product Requirements Document (PRD)
+AI-Powered Smart Crypto Portfolio & Risk Intelligence System
+Semester Project (OOP in C++ + React)
+________________________________________
+1. Project Overview
+Project Title
+AI-Powered Smart Crypto Portfolio & Risk Intelligence System
+Project Type
+Advanced Object-Oriented Programming Semester Project
+Tech Stack
+•	C++ (Core backend + OOP logic)
+•	React (Frontend Dashboard)
+•	REST APIs
+•	External Crypto APIs
+•	File Storage / Optional Database
+________________________________________
+2. Vision
+Build a premium crypto portfolio platform where users can:
+•	Track live crypto prices
+•	Manage portfolios
+•	Analyze portfolio risk
+•	Receive strategy suggestions
+•	View market sentiment
+•	Get intelligent alerts
+•	Use a real-time professional dashboard
+This is NOT just a price tracker. It is an intelligent investment decision-support system.
+________________________________________
+3. Core Objectives
+Project must demonstrate:
+OOP Concepts
+•	Encapsulation
+•	Abstraction
+•	Inheritance
+•	Polymorphism
+•	Composition
+•	Operator Overloading (optional)
+•	File Handling
+•	Exception Handling
+________________________________________
+4. System Architecture
+Overall Workflow
+User
+↓
+React Dashboard (Frontend)
+↓
+Axios Requests
+↓
+C++ REST Backend (Crow)
+↓
+Business Logic + OOP Engines
+↓
+External APIs
+↓
+Processed JSON Response
+↓
+Live Dashboard Updates
+________________________________________
+Request Flow Example
+User opens dashboard:
+1.	React loads homepage.
+2.	React sends request:
+GET /portfolio
+3.	C++ backend:
+•	loads holdings
+•	fetches live prices
+•	calculates profit/loss
+•	runs risk analysis
+•	generates suggestions
+4.	JSON response sent:
+{
+ totalPortfolio: 12000,
+ profitLoss: 8.4,
+ riskScore: "Medium",
+ recommendation: "Reduce altcoin exposure"
+}
+5.	React updates charts/cards.
+________________________________________
+5. Major Modules
+Module 1 — User Authentication
+Features:
+•	Register
+•	Login
+•	Logout
+•	User Profile
+•	Portfolio ownership
+Fields:
+•	Username
+•	Email
+•	Password
+•	Risk preference
+Possible Classes:
+class User
+class AuthenticationManager
+________________________________________
+Module 2 — Portfolio Management
+Features:
+•	Add coin holdings
+•	Buy simulation
+•	Sell simulation
+•	Portfolio valuation
+•	Asset allocation tracking
+•	Profit/Loss
+Example:
+BTC: 0.4 ETH: 2 SOL: 15
+Classes:
+class Portfolio
+class CryptoAsset
+class Transaction
+________________________________________
+Module 3 — Live Market Data Engine
+Features:
+•	Real-time prices
+•	24h changes
+•	Market cap
+•	Volume
+•	Trending coins
+API Sources:
+•	CoinGecko
+•	Binance
+Class:
+class ApiManager
+________________________________________
+Module 4 — Risk Analyzer Engine
+Unique Feature.
+Calculates:
+•	Portfolio concentration risk
+•	Volatility risk
+•	Diversification score
+•	Drawdown risk
+Outputs:
+•	Low Risk
+•	Medium Risk
+•	High Risk
+Example suggestion:
+“72% of your holdings are in volatile assets. Consider rebalancing.”
+Classes:
+class RiskAnalyzer
+class PortfolioAnalyzer
+________________________________________
+Module 5 — Strategy Suggestion Engine
+User selects:
+•	Conservative
+•	Moderate
+•	Aggressive
+System suggests:
+•	Asset allocation
+•	Rebalancing
+•	Position recommendations
+Class:
+class StrategyEngine
+________________________________________
+Module 6 — Smart Alert System
+Alerts for:
+•	Price crash
+•	Target reached
+•	High risk warning
+•	Market sentiment warning
+Examples:
+•	BTC dropped 10%
+•	Portfolio risk high
+Class:
+class AlertManager
+________________________________________
+Module 7 — Market Sentiment Module
+Uses:
+•	Fear & Greed API
+•	Optional News API
+Shows:
+•	Fear index
+•	Sentiment status
+•	Buy caution signals
+________________________________________
+6. Frontend Dashboard Features
+Dashboard Home
+Widgets:
+•	Total Portfolio Value
+•	Today’s P/L
+•	Risk Score
+•	Market Sentiment
+•	Top Gainers
+Charts:
+•	Portfolio Pie Chart
+•	Performance Line Chart
+•	Asset Distribution
+________________________________________
+Market Monitor Page
+Displays:
+•	Live coin prices
+•	Market trends
+•	Top movers
+________________________________________
+Risk Analysis Page
+Displays:
+•	Risk score
+•	Diversification chart
+•	Exposure report
+•	Suggestions
+________________________________________
+Strategy Simulator
+Feature:
+“If I invest $1000 in BTC today?”
+Simulation outputs:
+•	Potential scenarios
+•	Portfolio effect
+Unique feature.
+________________________________________
+7. UI Design Requirements
+Theme:
+•	Dark trading dashboard style
+•	Premium fintech look
+Use:
+•	Cards
+•	Animated graphs
+•	Real-time updates
+•	Smooth transitions
+Possible inspiration:
+•	Binance
+•	Coinbase
+•	TradingView
+________________________________________
+8. OOP Class Design
+Proposed Classes
+User
+Admin
+Portfolio
+CryptoAsset
+Transaction
+ApiManager
+RiskAnalyzer
+StrategyEngine
+AlertManager
+SentimentAnalyzer
+________________________________________
+Inheritance Example
+User
+ ├── BasicUser
+ └── PremiumUser
+or
+Asset
+ ├── Bitcoin
+ ├── Ethereum
+ └── Altcoin
+________________________________________
+Polymorphism Example
+virtual calculateRisk()
+Different risk behavior for assets.
+________________________________________
+9. APIs to Use
+CoinGecko API
+Use for:
+•	prices
+•	market data
+•	trends
+________________________________________
+Fear and Greed API
+Use for:
+•	market sentiment
+________________________________________
+Optional Binance API
+Advanced live data.
+________________________________________
+10. Complete Technology Stack
+Backend
+Use:
+•	C++17 or C++20
+•	Crow Framework
+•	cURL
+•	nlohmann/json
+•	CMake
+________________________________________
+Frontend
+Use:
+•	React (Next)
+•	Axios
+•	TailwindCSS
+•	Recharts
+•	Framer Motion
+________________________________________
+11. Installation Guide
+Install Backend Dependencies
+Install Compiler
+Windows (MinGW):
+g++ --version
+________________________________________
+Install CMake
+Download: https://cmake.org
+Check:
+cmake --version
+________________________________________
+Install cURL
+Linux:
+sudo apt install libcurl4-openssl-dev
+________________________________________
+Install JSON Library
+git clone https://github.com/nlohmann/json
+________________________________________
+Install Crow
+git clone https://github.com/CrowCpp/Crow
+________________________________________
+12. Frontend Installation
+Create React App:
+npm create next-app@latest crypto-dashboard
+cd crypto-dashboard
+npm install
+Install libraries:
+npm install axios
+npm install react-router-dom
+npm install recharts
+npm install framer-motion
+npm install tailwindcss
+Run:
+npm run dev
+________________________________________
+13. Backend API Routes
+Endpoints:
+GET /prices
+GET /portfolio
+GET /risk
+GET /sentiment
+POST /buy
+POST /sell
+________________________________________
+14. React-C++ Connection
+Backend server:
+localhost:8080
+React request:
+axios.get("http://localhost:8080/portfolio")
+Flow:
+React → axios → C++ Crow server → API Manager → Response → Dashboard render
+________________________________________
+15. Live Updates System
+Phase 1: Polling every 5 sec
+setInterval(fetchData,5000)
+________________________________________
+Phase 2 (Optional) WebSockets real-time.
+________________________________________
+16. File Structure
+project/
+│
+├── backend/
+│   ├── main.cpp
+│   ├── api_manager.cpp
+│   ├── risk_engine.cpp
+│   ├── portfolio.cpp
+│   └── models/
+│
+├── frontend/
+│   ├── src/
+│   ├── pages/
+│   ├── components/
+│   └── charts/
+│
+└── data/
+________________________________________
+17. Possible File Storage
+Use files for:
+•	users.txt
+•	portfolio.txt
+•	transaction_history.txt
+Optional future: SQLite.
+________________________________________
+18. Dashboard Components
+React Components:
+Navbar
+Sidebar
+PortfolioCard
+RiskWidget
+PriceTable
+PieChart
+LineChart
+AlertPanel
+SentimentMeter
+________________________________________
+19. Unique Features (Differentiators)
+Must Have Unique Features
+1.	Risk Intelligence Engine
+2.	Strategy Recommendation Engine
+3.	Fear & Greed Sentiment Integration
+4.	Portfolio Simulator
+5.	Smart Alerts
+These make project unique.
+________________________________________
+20. Advanced Optional Features
+Optional premium additions:
+Paper Trading
+Virtual trading simulation.
+________________________________________
+Portfolio Backtesting
+Check historical strategy performance.
+________________________________________
+AI Recommendation Engine
+Future extension.
+________________________________________
+21. Development Phases
+Phase 1
+Backend setup
+•	C++ setup
+•	Crow REST server
+•	APIs working
+________________________________________
+Phase 2
+Frontend dashboard
+•	React setup
+•	Layout
+•	Charts
+________________________________________
+Phase 3
+Portfolio system
+•	Transactions
+•	Holdings
+•	P/L
+________________________________________
+Phase 4
+Risk engine
+•	calculations
+•	scoring
+•	recommendations
+________________________________________
+Phase 5
+Advanced features
+•	alerts
+•	sentiment
+•	simulator
+________________________________________
+22. Suggested Timeline
+Week 1: Architecture + setup
+Week 2: Backend APIs
+Week 3: React dashboard
+Week 4: Portfolio logic
+Week 5: Risk engine
+Week 6: Advanced features
+Week 7: Testing + polish
+________________________________________
+23. Risks / Challenges
+Potential issues:
+•	API rate limits
+•	C++ backend setup complexity
+•	React-C++ integration bugs
+•	Real-time updates handling
+Solutions:
+•	Use free APIs initially
+•	Build module by module
+•	Start with polling
+•	Keep APIs backend-only
+________________________________________
+24. Security Notes
+Never expose API keys in React.
+Store keys only backend side.
+Example:
+Wrong: Frontend API key
+Correct: Backend API calls only.
+________________________________________
+25. Testing Plan
+Test:
+Unit Testing:
+•	Risk calculations
+•	Portfolio logic
+Integration Testing:
+•	React ↔ Backend
+•	Backend ↔ APIs
+UI Testing:
+•	Charts
+•	Alerts
+•	Updates
+________________________________________
+26. Viva Discussion Points
+Can explain:
+•	Why C++ for backend
+•	OOP architecture
+•	Inheritance usage
+•	Polymorphism use
+•	REST architecture
+•	API integration
+•	Risk engine logic
+•	Real-time dashboard workflow
+Huge viva advantage.
+________________________________________
+27. Sample User Journey
+User logs in.
+Adds:
+•	BTC
+•	ETH
+•	SOL
+Dashboard shows:
+•	Portfolio value
+•	Risk medium
+•	Fear index high
+System suggests: “Reduce altcoin exposure by 20%.”
+User simulates: Invest 500 more in BTC.
+System predicts improved diversification.
+This is the product experience.
+________________________________________
+28. Final Deliverables
+Project should include:
+✔ C++ OOP backend
+✔ React dashboard
+✔ API integration
+✔ Live market data
+✔ Risk analysis engine
+✔ Smart alerts
+✔ Strategy engine
+✔ Documentation
+✔ UML/Class diagrams
+✔ Presentation/demo
+________________________________________
+29. Final Stack Recommendation (Locked)
+Backend
+•	C++
+•	Crow
+•	cURL
+•	nlohmann/json
+•	CMake
+Frontend
+•	React
+•	TailwindCSS
+•	Axios
+•	Recharts
+•	Framer Motion
+APIs
+•	CoinGecko
+•	Fear & Greed API
+________________________________________
+30. Final Project Name Options
+Option 1: CryptoVision
+Option 2: RiskChain
+Option 3: CryptoIntel
+Option 4: PortfoAI
+Option 5: Crypto Sentinel (Highly recommended)
+________________________________________
+Recommended Final Name
+Crypto Sentinel:
+AI-Powered Smart Crypto Portfolio & Risk Intelligence System
+________________________________________
+END OF PRD
+(Next deliverables later can be UML diagrams, SRS, use case diagrams, class diagrams and sprint breakdown.)
