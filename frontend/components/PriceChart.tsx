@@ -12,26 +12,33 @@ import {
 } from 'recharts';
 import { api } from '@/app/lib/api';
 
-const mockPriceHistory = [
-  { time: '00:00', BTC: 45000, ETH: 2500, SOL: 180 },
-  { time: '04:00', BTC: 45300, ETH: 2520, SOL: 182 },
-  { time: '08:00', BTC: 44800, ETH: 2480, SOL: 175 },
-  { time: '12:00', BTC: 45500, ETH: 2550, SOL: 185 },
-  { time: '16:00', BTC: 45200, ETH: 2530, SOL: 183 },
-  { time: '20:00', BTC: 45800, ETH: 2570, SOL: 188 },
-  { time: '23:59', BTC: 45600, ETH: 2560, SOL: 186 },
-];
+interface PricePoint {
+  time: string;
+  BTC: number;
+  ETH: number;
+  SOL: number;
+}
 
 export default function PriceChart() {
-  const [data, setData] = useState(mockPriceHistory);
+  const [data, setData] = useState<PricePoint[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPrices = async () => {
       try {
-        await api.getPrices();
-        // Using mock data for now
-        setData(mockPriceHistory);
+        const response = await api.getPrices();
+        const prices = response.data || {};
+        const now = new Date();
+        const timeLabel = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const nextPoint: PricePoint = {
+          time: timeLabel,
+          BTC: Number(prices.BTC || 0),
+          ETH: Number(prices.ETH || 0),
+          SOL: Number(prices.SOL || 0),
+        };
+
+        setData((prev) => [...prev.slice(-23), nextPoint]);
       } catch (err) {
         console.error('Failed to fetch prices:', err);
       } finally {
@@ -64,7 +71,7 @@ export default function PriceChart() {
                 border: '1px solid #475569',
                 borderRadius: '8px',
               }}
-              formatter={(value) => `$${value.toLocaleString()}`}
+              formatter={(value) => `$${Number(value ?? 0).toLocaleString()}`}
             />
             <Bar dataKey="BTC" fill="#3b82f6" />
             <Bar dataKey="ETH" fill="#10b981" />

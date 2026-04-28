@@ -1,0 +1,13 @@
+{
+  "currentPortfolioValue": 17140.0,
+  "holdings": {
+    "BTC": 0.2,
+    "ETH": 1.0
+  },
+  "portfolioId": "port_user_demo",
+  "profitLoss": 9340.0,
+  "profitLossPercentage": 119.74358974358974,
+  "totalInvested": 7800.0,
+  "transactions": [],
+  "userId": "user_demo"
+}

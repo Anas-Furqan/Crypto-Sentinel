@@ -5,9 +5,9 @@ import { AlertCircle } from 'lucide-react';
 import { api } from '@/app/lib/api';
 
 interface RiskProps {
-  riskLevel?: string;
-  concentration?: number;
-  diversification?: number;
+  overallRiskLevel?: string;
+  concentrationRisk?: number;
+  diversificationScore?: number;
 }
 
 export default function RiskWidget() {
@@ -74,10 +74,10 @@ export default function RiskWidget() {
           <span className="text-slate-400">Risk Level</span>
           <span
             className={`px-3 py-1 rounded-full font-semibold text-sm ${getRiskColor(
-              risk.riskLevel || ''
+              risk.overallRiskLevel || ''
             )}`}
           >
-            {risk.riskLevel || 'N/A'}
+            {risk.overallRiskLevel || 'N/A'}
           </span>
         </div>
 
@@ -85,13 +85,13 @@ export default function RiskWidget() {
           <div className="flex items-center justify-between mb-2">
             <span className="text-slate-400">Concentration Risk</span>
             <span className="text-white font-semibold">
-              {((risk.concentration || 0) * 100).toFixed(1)}%
+              {((risk.concentrationRisk || 0) * 100).toFixed(1)}%
             </span>
           </div>
           <div className="w-full bg-slate-700 rounded-full h-2">
             <div
               className="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full"
-              style={{ width: `${(risk.concentration || 0) * 100}%` }}
+              style={{ width: `${(risk.concentrationRisk || 0) * 100}%` }}
             />
           </div>
         </div>
@@ -100,13 +100,13 @@ export default function RiskWidget() {
           <div className="flex items-center justify-between mb-2">
             <span className="text-slate-400">Diversification Score</span>
             <span className="text-white font-semibold">
-              {((risk.diversification || 0) * 100).toFixed(1)}%
+              {((risk.diversificationScore || 0) * 100).toFixed(1)}%
             </span>
           </div>
           <div className="w-full bg-slate-700 rounded-full h-2">
             <div
               className="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full"
-              style={{ width: `${(risk.diversification || 0) * 100}%` }}
+              style={{ width: `${(risk.diversificationScore || 0) * 100}%` }}
             />
           </div>
         </div>

@@ -66,7 +66,11 @@ npm install
 ```
 
 #### 3. Configure environment
-- File `.env.local` is already configured with:
+- Copy `frontend/.env.local.example` to `frontend/.env.local`:
+```bash
+cp .env.local.example .env.local
+```
+- Required frontend variable:
 ```
 NEXT_PUBLIC_API_URL=http://localhost:8080
 ```
@@ -102,6 +106,46 @@ npm run dev
 
 ---
 
+## API Key & Environment Files
+
+Create local env files from templates:
+
+```bash
+# from repository root
+cp .env.example .env
+cp backend/.env.example backend/.env
+cp frontend/.env.local.example frontend/.env.local
+```
+
+Windows PowerShell equivalent:
+
+```powershell
+Copy-Item .env.example .env
+Copy-Item backend/.env.example backend/.env
+Copy-Item frontend/.env.local.example frontend/.env.local
+```
+
+Key fields:
+
+```
+COINGECKO_API_KEY=
+FEAR_GREED_API_KEY=
+BINANCE_API_KEY=
+```
+
+Where to get keys:
+- CoinGecko API key: [https://www.coingecko.com/en/api](https://www.coingecko.com/en/api)
+- Fear & Greed API: [https://alternative.me/crypto/fear-and-greed-index/](https://alternative.me/crypto/fear-and-greed-index/) (usually no key required, keep blank unless your provider issues one)
+- Binance API key (optional): [https://www.binance.com/en/my/settings/api-management](https://www.binance.com/en/my/settings/api-management)
+
+Backend integration points for these keys:
+- `backend/src/api_manager.cpp` (CoinGecko/Binance requests)
+- `backend/src/sentiment_analyzer.cpp` (Fear & Greed requests)
+
+Note: frontend must only use `NEXT_PUBLIC_*` variables and should never store secret API keys.
+
+---
+
 ## Available API Endpoints
 
 All endpoints are accessible from the frontend automatically:
@@ -109,12 +153,17 @@ All endpoints are accessible from the frontend automatically:
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/health` | GET | Server health check |
+| `/auth/register` | POST | Register user |
+| `/auth/login` | POST | Login user |
+| `/auth/profile` | GET | Fetch profile |
 | `/prices` | GET | Current crypto prices |
 | `/portfolio` | GET | User portfolio data |
 | `/risk` | GET | Risk analysis |
 | `/sentiment` | GET | Market sentiment |
-| `/buy` | POST | Buy crypto (simulation) |
-| `/sell` | POST | Sell crypto (simulation) |
+| `/strategy` | GET | Strategy recommendations |
+| `/alerts` | GET | User alert stream |
+| `/buy` | POST | Buy crypto (live-price simulation) |
+| `/sell` | POST | Sell crypto (live-price simulation) |
 
 ---
 

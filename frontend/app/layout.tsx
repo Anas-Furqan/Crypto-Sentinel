@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
+import { AuthProvider } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,8 +29,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="h-full bg-slate-900 text-white">{children}</body>
-      
+      <head>
+        <Script src="https://cdn.tailwindcss.com" strategy="beforeInteractive" />
+      </head>
+      <body className="h-full bg-slate-900 text-white">
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

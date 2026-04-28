@@ -76,7 +76,7 @@ export default function HoldingsChart({ refreshInterval = 30000 }: HoldingsChart
               ))}
             </Pie>
             <Tooltip
-              formatter={(value) => `${value.toFixed(2)}`}
+              formatter={(value) => `${Number(value ?? 0).toFixed(2)}`}
               contentStyle={{
                 backgroundColor: '#1e293b',
                 border: '1px solid #475569',

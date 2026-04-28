@@ -1,0 +1,8 @@
+.env
+backend/.env
+frontend/.env.local
+
+# Generated folders
+frontend/.next/
+backend/build/data/
+.env.example
