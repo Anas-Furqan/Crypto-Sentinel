@@ -226,6 +226,8 @@ int main() {
         response["holdings"] = portfolio.getHoldings();
         response["assetAllocation"] = allocation;
         response["holdingsCount"] = (int)portfolio.getHoldings().size();
+        // Include persisted transaction history so frontend can show executed trades
+        response["transactions"] = FileHandler::loadTransactionHistory(portfolio.getPortfolioId());
         response["portfolioId"] = portfolio.getPortfolioId();
         return jsonResponse(200, response);
     });
