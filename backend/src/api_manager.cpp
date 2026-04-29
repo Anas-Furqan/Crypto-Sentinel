@@ -34,7 +34,8 @@ std::string shellEscape(const std::string& raw) {
 }
 
 std::string runCurlGet(const std::string& url, const std::string& apiKeyHeader = "") {
-    std::string command = "curl -s -L";
+    // limit external request time so server returns cached/demo data quickly
+    std::string command = "curl -s -L --max-time 5";
     if (!apiKeyHeader.empty()) {
         command += " -H \"" + shellEscape(apiKeyHeader) + "\"";
     }

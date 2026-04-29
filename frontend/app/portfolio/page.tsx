@@ -14,6 +14,13 @@ interface PortfolioData {
   holdings?: Record<string, number>;
   assetAllocation?: Record<string, number>;
   holdingsCount?: number;
+  transactions?: Array<{
+    type?: string;
+    symbol?: string;
+    quantity?: number;
+    price?: number;
+    timestamp?: number | string;
+  }>;
 }
 
 interface PriceMap {
@@ -56,14 +63,16 @@ export default function Portfolio() {
     setSubmitting(true);
     setStatus(null);
 
-    fetchData();
-
     try {
       const response = side === 'buy'
         ? await api.buyOrder(selectedAsset, amount)
         : await api.sellOrder(selectedAsset, amount);
 
-      setStatus(response.data?.message || `${side === 'buy' ? 'Buy' : 'Sell'} order completed.`);
+      setStatus(
+        response.data?.message
+          ? `${response.data.message}${response.data.price ? ` at $${Number(response.data.price).toLocaleString()}` : ''}`
+          : `${side === 'buy' ? 'Buy' : 'Sell'} order completed.`
+      );
       setAmount(0);
       await fetchData();
     } catch (error) {
@@ -91,6 +100,17 @@ export default function Portfolio() {
   const allocationRows = useMemo(
     () => Object.entries(portfolio.assetAllocation || {}),
     [portfolio.assetAllocation]
+  );
+
+  const transactionRows = useMemo(
+    () => (portfolio.transactions || []).map((transaction) => ({
+      type: transaction.type || 'UNKNOWN',
+      symbol: transaction.symbol || '-',
+      quantity: Number(transaction.quantity || 0),
+      price: Number(transaction.price || 0),
+      timestamp: transaction.timestamp ? new Date(Number(transaction.timestamp) * 1000).toISOString().replace('T', ' ').slice(0, 19) + ' UTC' : '-',
+    })),
+    [portfolio.transactions]
   );
 
   return (
@@ -170,7 +190,7 @@ export default function Portfolio() {
               </div>
 
               <div className="rounded-[2rem] border border-slate-700 bg-slate-900/90 p-6 md:p-8">
-                <h3 className="text-lg font-semibold text-white mb-6">Portfolio History</h3>
+                <h3 className="text-lg font-semibold text-white mb-6">Holdings</h3>
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
@@ -190,6 +210,40 @@ export default function Portfolio() {
                           <td className="py-3 px-4 text-right text-green-500 font-semibold">${row.value.toLocaleString()}</td>
                         </tr>
                       ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="rounded-[2rem] border border-slate-700 bg-slate-900/90 p-6 md:p-8">
+                <h3 className="text-lg font-semibold text-white mb-6">Trade History</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-slate-700">
+                        <th className="text-left py-3 px-4 text-slate-400">Type</th>
+                        <th className="text-left py-3 px-4 text-slate-400">Asset</th>
+                        <th className="text-right py-3 px-4 text-slate-400">Amount</th>
+                        <th className="text-right py-3 px-4 text-slate-400">Price</th>
+                        <th className="text-right py-3 px-4 text-slate-400">Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {transactionRows.length ? transactionRows.map((row, i) => (
+                        <tr key={i} className="border-b border-slate-700/50 hover:bg-slate-700/20">
+                          <td className="py-3 px-4 text-white font-medium">{row.type}</td>
+                          <td className="py-3 px-4 text-slate-300">{row.symbol}</td>
+                          <td className="py-3 px-4 text-right text-slate-300">{row.quantity}</td>
+                          <td className="py-3 px-4 text-right text-slate-300">${row.price.toLocaleString()}</td>
+                          <td className="py-3 px-4 text-right text-slate-300">{row.timestamp}</td>
+                        </tr>
+                      )) : (
+                        <tr>
+                          <td className="py-4 px-4 text-slate-400" colSpan={5}>
+                            No transactions yet.
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>

@@ -4,7 +4,19 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
+  timeout: 30000,
+});
+
+// simple retry on timeout: retry once when a request times out
+apiClient.interceptors.response.use(undefined, async (error) => {
+  const config = error?.config;
+  if (!config) return Promise.reject(error);
+  const isTimeout = error?.code === 'ECONNABORTED' || error?.message?.includes('timeout');
+  if (isTimeout && !config.__retry) {
+    config.__retry = true;
+    return apiClient(config);
+  }
+  return Promise.reject(error);
 });
 
 let accessToken: string | null = null;

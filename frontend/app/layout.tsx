@@ -27,12 +27,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
       <head>
         <Script src="https://cdn.tailwindcss.com" strategy="beforeInteractive" />
       </head>
-      <body className="h-full bg-slate-900 text-white">
+      <body suppressHydrationWarning className="h-full bg-slate-900 text-white">
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
