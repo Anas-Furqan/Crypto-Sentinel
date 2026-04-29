@@ -24,6 +24,8 @@ export default function Dashboard() {
   const [sentimentNote, setSentimentNote] = useState('Loading market sentiment...');
   const [riskNote, setRiskNote] = useState('Loading risk engine...');
   const { user, isAuthenticated } = useAuth();
+  const changePct = portfolio?.profitLoss || 0;
+  const formattedChangePct = `${changePct >= 0 ? '+' : ''}${changePct.toFixed(3)}%`;
 
   useEffect(() => {
     const refreshDashboard = async () => {
@@ -114,7 +116,7 @@ export default function Dashboard() {
               title="Total Balance"
               value={`$${(portfolio?.totalValue || 0).toLocaleString()}`}
               trend="up"
-              trendValue={`+${portfolio?.profitLoss || 0}%`}
+              trendValue={formattedChangePct}
               icon={<Wallet size={24} />}
             />
             <StatCard
@@ -124,7 +126,7 @@ export default function Dashboard() {
             />
             <StatCard
               title="24h Change"
-              value={`+${portfolio?.profitLoss || 0}%`}
+              value={formattedChangePct}
               trend="up"
               trendValue="Strong"
               icon={<TrendingUp size={24} />}

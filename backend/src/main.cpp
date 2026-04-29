@@ -244,12 +244,62 @@ int main() {
             prices[symbol] = priceJson.value(symbol, 0.0);
         }
 
-        std::map<std::string, double> volatilities = {
-            {"BTC", 0.04}, {"ETH", 0.06}, {"SOL", 0.10}, {"USDC", 0.01}
-        };
+        // Build dynamic volatility proxies from live 24h change percentages.
+        std::map<std::string, double> volatilities;
+        for (const auto& [symbol, qty] : portfolio.getHoldings()) {
+            (void)qty;
+            const double changePct = std::abs(g_apiManager->calculate24hChange(symbol));
+            // Keep a sane range so risk remains stable even with noisy API values.
+            const double volProxy = std::max(0.01, std::min(0.35, changePct / 100.0));
+            volatilities[symbol] = volProxy;
+        }
+
         json riskData = g_riskAnalyzer->performCompleteAnalysis(portfolio.getHoldings(), prices, volatilities);
         riskData["portfolioValue"] = portfolio.getCurrentPortfolioValue();
         riskData["holdingsCount"] = (int)portfolio.getHoldings().size();
+
+        // Add multi-horizon prediction ranges with confidence bands.
+        json predictions = json::array();
+        const std::vector<int> horizons = {1, 7, 30};
+        for (const auto& [symbol, qty] : portfolio.getHoldings()) {
+            const double livePrice = prices[symbol];
+            const double vol = volatilities[symbol];
+            const double assetValue = qty * livePrice;
+            json bands = json::array();
+
+            for (const int days : horizons) {
+                const double scale = std::sqrt((double)days);
+                const double oneSigmaMove = vol * scale;
+                const double twoSigmaMove = oneSigmaMove * 1.96;
+
+                bands.push_back({
+                    {"horizonDays", days},
+                    {"expectedMovePct", oneSigmaMove * 100.0},
+                    {"oneSigma", {
+                        {"priceLow", std::max(0.0, livePrice * (1.0 - oneSigmaMove))},
+                        {"priceHigh", livePrice * (1.0 + oneSigmaMove)},
+                        {"valueLow", std::max(0.0, assetValue * (1.0 - oneSigmaMove))},
+                        {"valueHigh", assetValue * (1.0 + oneSigmaMove)}
+                    }},
+                    {"twoSigma", {
+                        {"priceLow", std::max(0.0, livePrice * (1.0 - twoSigmaMove))},
+                        {"priceHigh", livePrice * (1.0 + twoSigmaMove)},
+                        {"valueLow", std::max(0.0, assetValue * (1.0 - twoSigmaMove))},
+                        {"valueHigh", assetValue * (1.0 + twoSigmaMove)}
+                    }}
+                });
+            }
+
+            predictions.push_back({
+                {"symbol", symbol},
+                {"currentPrice", livePrice},
+                {"quantity", qty},
+                {"positionValue", assetValue},
+                {"dailyVolatilityPct", vol * 100.0},
+                {"bands", bands}
+            });
+        }
+        riskData["predictions"] = predictions;
         return jsonResponse(200, riskData);
     });
 
